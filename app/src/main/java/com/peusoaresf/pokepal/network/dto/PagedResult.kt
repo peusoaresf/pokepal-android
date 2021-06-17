@@ -7,6 +7,6 @@ data class NamedResource(
 
 data class PagedResult(
     val count: Int,
-    val next: String,
+    val next: String?,
     val results: List<NamedResource>
 )
