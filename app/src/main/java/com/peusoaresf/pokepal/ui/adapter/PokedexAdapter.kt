@@ -5,29 +5,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.peusoaresf.pokepal.R
+import com.peusoaresf.pokepal.databinding.ListItemPokemonBinding
 import com.peusoaresf.pokepal.domain.Pokemon
 
 class PokemonViewHolder
-    private constructor(root: View): RecyclerView.ViewHolder(root) {
-    private val textPokemonId = root.findViewById<TextView>(R.id.text_pokemon_id)
-    private val imagePokemonSprite = root.findViewById<ImageView>(R.id.image_pokemon_sprite)
+    private constructor(
+        private val binding: ListItemPokemonBinding): RecyclerView.ViewHolder(binding.root) {
 
     fun bind(pokemon: Pokemon) {
-        textPokemonId.text = pokemon.id.toString()
-        Glide.with(imagePokemonSprite.context)
-            .load(pokemon.spriteUrl)
-            .into(imagePokemonSprite)
+        binding.pokemon = pokemon
+        binding.executePendingBindings()
     }
 
     companion object {
         fun from(parent: ViewGroup): PokemonViewHolder {
-            val root = LayoutInflater.from(parent.context).inflate(R.layout.list_item_pokemon, parent, false)
-            return PokemonViewHolder(root)
+            val binding = ListItemPokemonBinding.inflate(LayoutInflater.from(parent.context))
+            return PokemonViewHolder(binding)
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.peusoaresf.pokepal.ui.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.peusoaresf.pokepal.database.dao.PokemonDao
 import com.peusoaresf.pokepal.database.getDatabase
@@ -15,6 +16,10 @@ class PokedexViewModel(
     application: Application,
     val pokemonRepository: PokemonRepository): AndroidViewModel(application) {
 
+    private val _showErrorMessage = MutableLiveData<String>()
+    val showErrorMessage: LiveData<String>
+        get() = _showErrorMessage
+
     val refreshProgress = Transformations.map(pokemonRepository.refreshProgress) {
         progress -> "${"%.2f".format(progress)}%"
     }
@@ -26,7 +31,18 @@ class PokedexViewModel(
     val pokemons = pokemonRepository.pokemons
 
     fun refreshPokemons() = viewModelScope.launch {
-        pokemonRepository.refreshPokemons()
+        try {
+            pokemonRepository.refreshPokemons()
+        } catch (e: Exception) {
+            val msg = "Error: ${e.message ?: "UnknownError"}"
+
+            Log.i("PokedexViewModel", msg)
+            _showErrorMessage.value = msg
+        }
+    }
+
+    fun showErrorMessageDone() {
+        _showErrorMessage.value = null
     }
 }
 

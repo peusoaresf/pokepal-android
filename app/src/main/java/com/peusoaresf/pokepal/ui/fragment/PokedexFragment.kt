@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.peusoaresf.pokepal.R
 import com.peusoaresf.pokepal.database.getDatabase
+import com.peusoaresf.pokepal.databinding.FragmentPokedexBinding
 import com.peusoaresf.pokepal.network.Network
 import com.peusoaresf.pokepal.repository.PokemonRepository
 import com.peusoaresf.pokepal.ui.adapter.PokedexAdapter
@@ -41,41 +43,29 @@ class PokedexFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_pokedex, container, false)
+        val binding: FragmentPokedexBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_pokedex, container, false)
 
-        val recyclerViewPokedex = root.findViewById<RecyclerView>(R.id.recycler_view_pokedex)
-        recyclerViewPokedex.adapter = pokedexAdapter
+        // Allow databinding to observe LiveData
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+        binding.recyclerViewPokedex.adapter = pokedexAdapter
 
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.refreshProgress.observe(viewLifecycleOwner, Observer { progress ->
-            val textProgress = view.findViewById<TextView>(R.id.text_progress)
-            textProgress.text = progress
+        viewModel.pokemons.observe(viewLifecycleOwner, Observer {
+            pokemons -> pokedexAdapter.submitList(pokemons)
         })
 
-        viewModel.pokemonsLoaded.observe(viewLifecycleOwner, Observer { pokemonsLoaded ->
-            val textPokemonCount = view.findViewById<TextView>(R.id.text_pokemon_count)
-            textPokemonCount.text = pokemonsLoaded
-        })
-
-        viewModel.pokemons.observe(viewLifecycleOwner, Observer { pokemons ->
-            pokedexAdapter.submitList(pokemons)
-        })
-
-        val buttonRefreshPokemons = view.findViewById<Button>(R.id.button_refresh_pokemons)
-        buttonRefreshPokemons.setOnClickListener {
-            try {
-                viewModel.refreshPokemons()
-            } catch (e: Exception) {
-                val msg = "Error: ${e.message ?: "UnknownError"}"
-
-                Toast.makeText(this@PokedexFragment.context, msg, Toast.LENGTH_LONG).show()
-                Log.i("MainActivity", msg)
+        viewModel.showErrorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(this.context, errorMessage, Toast.LENGTH_LONG).show()
+                viewModel.showErrorMessageDone()
             }
-        }
+        })
     }
 }
