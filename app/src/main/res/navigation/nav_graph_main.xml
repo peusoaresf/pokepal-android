@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_pokedex">
         <action
             android:id="@+id/action_pokedex_fragment_to_about_fragment"
-            app:destination="@id/aboutFragment" />
+            app:destination="@id/aboutFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:popEnterAnim="@anim/fragment_open_enter" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
