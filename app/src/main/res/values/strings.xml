@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Pokepal</string>
     <string name="refresh_pokemons">Refresh Pokemons</string>
+    <string name="about">About</string>
 </resources>

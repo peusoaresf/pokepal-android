@@ -2,9 +2,7 @@ package com.peusoaresf.pokepal.ui.fragment
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -51,6 +49,8 @@ class PokedexFragment: Fragment() {
         binding.viewModel = viewModel
         binding.recyclerViewPokedex.adapter = pokedexAdapter
 
+        setHasOptionsMenu(true)
+
         return binding.root
     }
 
@@ -67,5 +67,18 @@ class PokedexFragment: Fragment() {
                 viewModel.showErrorMessageDone()
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_overflow, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_item_refresh -> Toast.makeText(this.context, "Refresh pokemons", Toast.LENGTH_SHORT).show()
+            R.id.menu_item_about -> Toast.makeText(this.context, "Show about fragment", Toast.LENGTH_SHORT).show()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
