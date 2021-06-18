@@ -3,12 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_main"
-    app:startDestination="@id/fragment_pokedex">
+    app:startDestination="@id/pokedexFragment">
 
     <fragment
-        android:id="@+id/fragment_pokedex"
+        android:id="@+id/pokedexFragment"
         android:name="com.peusoaresf.pokepal.ui.fragment.PokedexFragment"
-        android:label="fragment_pokedex"
-        tools:layout="@layout/fragment_pokedex" />
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_pokedex">
+        <action
+            android:id="@+id/action_pokedex_fragment_to_about_fragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.peusoaresf.pokepal.ui.fragment.AboutFragment"
+        android:label="@string/about"
+        tools:layout="@layout/fragment_about" />
 
 </navigation>

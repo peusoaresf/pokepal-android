@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.peusoaresf.pokepal.R
 import com.peusoaresf.pokepal.database.getDatabase
@@ -77,7 +78,9 @@ class PokedexFragment: Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_item_refresh -> Toast.makeText(this.context, "Refresh pokemons", Toast.LENGTH_SHORT).show()
-            R.id.menu_item_about -> Toast.makeText(this.context, "Show about fragment", Toast.LENGTH_SHORT).show()
+            R.id.menu_item_about -> this.findNavController().navigate(
+                PokedexFragmentDirections.actionPokedexFragmentToAboutFragment()
+            )
         }
         return super.onOptionsItemSelected(item)
     }
