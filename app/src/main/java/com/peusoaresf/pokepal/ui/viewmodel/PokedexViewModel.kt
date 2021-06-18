@@ -21,10 +21,14 @@ class PokedexViewModel(
         get() = _showErrorMessage
 
     val refreshProgress = Transformations.map(pokemonRepository.refreshProgress) {
+        progress -> progress.toInt()
+    }
+
+    val refreshProgressText = Transformations.map(pokemonRepository.refreshProgress) {
         progress -> "${"%.2f".format(progress)}%"
     }
 
-    val pokemonsLoaded = Transformations.map(pokemonRepository.pokemons) {
+    val pokemonsLoadedText = Transformations.map(pokemonRepository.pokemons) {
         pokemons -> "${pokemons.size.toString()} pokemons loaded"
     }
 

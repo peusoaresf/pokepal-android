@@ -26,27 +26,38 @@ class PokemonRepository(
     }
 
     suspend fun refreshPokemons() = withContext(externalContext) {
-        pokemonDao.deleteAll()
+        // TODO: TEST CODE, REMOVE AFTER DEVELOPMENT
         _refreshProgress.postValue(0.0)
 
-        var offset = 0
-        var hasNextPage: Boolean
+        for (i in 1..100) {
+            Thread.sleep(100)
+            _refreshProgress.postValue(i.toDouble())
+        }
 
-        do {
-            val pokemonResources = pokemonService.getPokemons(offset = offset).await()
+        _refreshProgress.postValue(100.0)
 
-            val pokemonDtos = pokemonResources.results.map { resource ->
-                Network.pokemonService.getPokemon(resource.name)
-            }.awaitAll()
-
-            pokemonDao.insertAll(*pokemonDtos.asDatabaseModel().toTypedArray())
-
-            offset += 20
-            hasNextPage = pokemonResources.next != null
-
-            _refreshProgress.postValue( ((pokemons.value?.size?.toDouble() ?: 0.0) / pokemonResources.count) * 100)
-        } while (hasNextPage)
-
-        _refreshProgress.postValue(100.00)
+        // TODO: FINAL CODE
+//        pokemonDao.deleteAll()
+//        _refreshProgress.postValue(0.0)
+//
+//        var offset = 0
+//        var hasNextPage: Boolean
+//
+//        do {
+//            val pokemonResources = pokemonService.getPokemons(offset = offset).await()
+//
+//            val pokemonDtos = pokemonResources.results.map { resource ->
+//                Network.pokemonService.getPokemon(resource.name)
+//            }.awaitAll()
+//
+//            pokemonDao.insertAll(*pokemonDtos.asDatabaseModel().toTypedArray())
+//
+//            offset += 20
+//            hasNextPage = pokemonResources.next != null
+//
+//            _refreshProgress.postValue( ((pokemons.value?.size?.toDouble() ?: 0.0) / pokemonResources.count) * 100)
+//        } while (hasNextPage)
+//
+//        _refreshProgress.postValue(100.0)
     }
 }
