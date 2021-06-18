@@ -1,53 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_host_fragment_main"
+    android:name="androidx.navigation.fragment.NavHostFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
-
-    <TextView
-        android:id="@+id/text_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/text_pokemon_count"
-        app:layout_constraintStart_toStartOf="@+id/text_pokemon_count"
-        app:layout_constraintTop_toBottomOf="@+id/text_pokemon_count"
-        tools:text="100%" />
-
-    <TextView
-        android:id="@+id/text_pokemon_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/button_refresh_pokemons"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_refresh_pokemons"
-        app:layout_constraintTop_toTopOf="@+id/button_refresh_pokemons"
-        tools:text="100 pokemons loaded" />
-
-    <Button
-        android:id="@+id/button_refresh_pokemons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/refresh_pokemons"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_pokedex"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:paddingTop="8dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_progress"
-        app:spanCount="5"
-        tools:itemsCount="16"
-        tools:listitem="@layout/list_item_pokemon" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    app:defaultNavHost="true"
+    app:navGraph="@navigation/nav_graph_main" />

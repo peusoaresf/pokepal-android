@@ -1,4 +1,4 @@
-package com.peusoaresf.pokepal.adapter
+package com.peusoaresf.pokepal.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
