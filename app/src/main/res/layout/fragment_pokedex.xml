@@ -43,7 +43,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/refresh_pokemons"
-            android:onClick="@{() -> viewModel.refreshPokemons()}"
+            android:onClick="@{() -> viewModel.refreshPokedex()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

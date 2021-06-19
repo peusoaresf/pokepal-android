@@ -1,6 +1,7 @@
 package com.peusoaresf.pokepal.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -16,18 +17,7 @@ import com.peusoaresf.pokepal.ui.viewmodel.PokedexViewModel
 import com.peusoaresf.pokepal.ui.viewmodel.PokedexViewModelFactory
 
 class PokedexFragment: Fragment() {
-    private val viewModel: PokedexViewModel by lazy {
-        val activity = requireNotNull(this.activity) {
-            "You can only access the viewModel after onViewCreated()"
-        }
-
-        ViewModelProvider(this, PokedexViewModelFactory(activity.application))
-            .get(PokedexViewModel::class.java)
-    }
-
-    private val pokedexSyncNotification: PokedexSyncNotification by lazy {
-        PokedexSyncNotification(this.requireContext())
-    }
+    private lateinit var viewModel: PokedexViewModel
 
     private val pokedexAdapter = PokedexAdapter()
 
@@ -38,6 +28,9 @@ class PokedexFragment: Fragment() {
     ): View? {
         val binding: FragmentPokedexBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_pokedex, container, false)
+
+        viewModel = ViewModelProvider(this, PokedexViewModelFactory(requireActivity().application, viewLifecycleOwner))
+            .get(PokedexViewModel::class.java)
 
         // Allow databinding to observe LiveData
         binding.lifecycleOwner = viewLifecycleOwner
@@ -51,10 +44,6 @@ class PokedexFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.refreshProgress.observe(viewLifecycleOwner, Observer {
-            progress -> pokedexSyncNotification.notifyProgress(progress)
-        })
 
         viewModel.pokemons.observe(viewLifecycleOwner, Observer {
             pokemons -> pokedexAdapter.submitList(pokemons)
