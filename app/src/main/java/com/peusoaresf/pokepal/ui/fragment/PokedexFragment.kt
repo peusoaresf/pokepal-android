@@ -35,6 +35,8 @@ class PokedexFragment: Fragment() {
             .get(PokedexViewModel::class.java)
     }
 
+    private lateinit var binding: FragmentPokedexBinding
+
     private val pokedexAdapter = PokedexAdapter()
 
     override fun onCreateView(
@@ -42,8 +44,7 @@ class PokedexFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentPokedexBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_pokedex, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pokedex, container, false)
 
         // Allow databinding to observe LiveData
         binding.lifecycleOwner = viewLifecycleOwner
@@ -62,6 +63,13 @@ class PokedexFragment: Fragment() {
             pokemons -> pokedexAdapter.submitList(pokemons)
         })
 
+        viewModel.isRefreshing.observe(viewLifecycleOwner, Observer { isRefreshing ->
+            binding.progressIndicator.visibility = when (isRefreshing) {
+                true -> View.VISIBLE
+                else -> View.GONE
+            }
+        })
+
         viewModel.showErrorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
             errorMessage?.let {
                 Toast.makeText(this.context, errorMessage, Toast.LENGTH_LONG).show()
@@ -77,7 +85,7 @@ class PokedexFragment: Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_item_refresh -> Toast.makeText(this.context, "Refresh pokemons", Toast.LENGTH_SHORT).show()
+            R.id.menu_item_refresh -> viewModel.refreshPokemons()
             R.id.menu_item_about -> this.findNavController().navigate(
                 PokedexFragmentDirections.actionPokedexFragmentToAboutFragment()
             )

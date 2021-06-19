@@ -17,8 +17,8 @@ class PokemonRepository(
     private val pokemonDao: PokemonDao,
     private val pokemonService: PokemonService) {
 
-    private val _refreshProgress = MutableLiveData<Double>()
-    val refreshProgress: LiveData<Double>
+    private val _refreshProgress = MutableLiveData<Int>()
+    val refreshProgress: LiveData<Int>
         get() = _refreshProgress
 
     val pokemons = Transformations.map(pokemonDao.getPokemons()) {
@@ -27,7 +27,7 @@ class PokemonRepository(
 
     suspend fun refreshPokemons() = withContext(externalContext) {
         pokemonDao.deleteAll()
-        _refreshProgress.postValue(0.0)
+        _refreshProgress.postValue(0)
 
         var offset = 0
         var hasNextPage: Boolean
@@ -43,10 +43,11 @@ class PokemonRepository(
 
             offset += 20
             hasNextPage = pokemonResources.next != null
+            val progress = ((pokemons.value?.size?.toDouble() ?: 0.0) / pokemonResources.count) * 100
 
-            _refreshProgress.postValue( ((pokemons.value?.size?.toDouble() ?: 0.0) / pokemonResources.count) * 100)
+            _refreshProgress.postValue(progress.toInt())
         } while (hasNextPage)
 
-        _refreshProgress.postValue(100.00)
+        _refreshProgress.postValue(100)
     }
 }

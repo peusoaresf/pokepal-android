@@ -20,17 +20,21 @@ class PokedexViewModel(
     val showErrorMessage: LiveData<String>
         get() = _showErrorMessage
 
-    val refreshProgress = Transformations.map(pokemonRepository.refreshProgress) {
-        progress -> "${"%.2f".format(progress)}%"
-    }
+    private val _isRefreshing = MutableLiveData<Boolean>()
+    val isRefreshing: LiveData<Boolean>
+        get() = _isRefreshing
 
-    val pokemonsLoaded = Transformations.map(pokemonRepository.pokemons) {
-        pokemons -> "${pokemons.size.toString()} pokemons loaded"
-    }
+    val refreshProgress = pokemonRepository.refreshProgress
 
     val pokemons = pokemonRepository.pokemons
 
+    init {
+        _isRefreshing.value = false
+    }
+
     fun refreshPokemons() = viewModelScope.launch {
+        _isRefreshing.value = true
+
         try {
             pokemonRepository.refreshPokemons()
         } catch (e: Exception) {
@@ -38,6 +42,8 @@ class PokedexViewModel(
 
             Log.i("PokedexViewModel", msg)
             _showErrorMessage.value = msg
+        } finally {
+            _isRefreshing.value = false
         }
     }
 
