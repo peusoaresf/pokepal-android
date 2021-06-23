@@ -30,6 +30,7 @@ class PokemonRepository(
         _refreshProgress.postValue(0)
 
         var offset = 0
+        var loadedCount = 0
         var hasNextPage: Boolean
 
         do {
@@ -42,8 +43,9 @@ class PokemonRepository(
             pokemonDao.insertAll(*pokemonDtos.asDatabaseModel().toTypedArray())
 
             offset += 20
+            loadedCount += pokemonDtos.size
             hasNextPage = pokemonResources.next != null
-            val progress = ((pokemons.value?.size?.toDouble() ?: 0.0) / pokemonResources.count) * 100
+            val progress = (loadedCount.toDouble() / pokemonResources.count) * 100
 
             _refreshProgress.postValue(progress.toInt())
         } while (hasNextPage)
