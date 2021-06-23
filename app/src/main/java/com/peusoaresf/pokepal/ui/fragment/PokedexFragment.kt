@@ -18,6 +18,7 @@ import com.peusoaresf.pokepal.databinding.FragmentPokedexBinding
 import com.peusoaresf.pokepal.network.Network
 import com.peusoaresf.pokepal.repository.PokemonRepository
 import com.peusoaresf.pokepal.ui.adapter.PokedexAdapter
+import com.peusoaresf.pokepal.ui.adapter.PokemonClick
 import com.peusoaresf.pokepal.ui.viewmodel.PokedexViewModel
 import com.peusoaresf.pokepal.ui.viewmodel.PokedexViewModelFactory
 import kotlinx.coroutines.CoroutineScope
@@ -35,9 +36,13 @@ class PokedexFragment: Fragment() {
             .get(PokedexViewModel::class.java)
     }
 
-    private lateinit var binding: FragmentPokedexBinding
+    private val pokedexAdapter by lazy {
+        PokedexAdapter(PokemonClick { pokemon ->
+            viewModel.displayPokemonDetails(pokemon)
+        })
+    }
 
-    private val pokedexAdapter = PokedexAdapter()
+    private lateinit var binding: FragmentPokedexBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,10 +68,21 @@ class PokedexFragment: Fragment() {
             pokemons -> pokedexAdapter.submitList(pokemons)
         })
 
+        // TODO: create binding adapter
         viewModel.isRefreshing.observe(viewLifecycleOwner, Observer { isRefreshing ->
             binding.progressIndicator.visibility = when (isRefreshing) {
                 true -> View.VISIBLE
                 else -> View.GONE
+            }
+        })
+
+        viewModel.navigateToSelectedPokemon.observe(viewLifecycleOwner, Observer { pokemon ->
+            pokemon?.let {
+                Toast.makeText(requireContext(), pokemon.name, Toast.LENGTH_SHORT).show()
+                this.findNavController().navigate(
+                    PokedexFragmentDirections.actionPokedexFragmentToPokemonFragment(pokemon)
+                )
+                viewModel.displayPokemonDetailsDone()
             }
         })
 

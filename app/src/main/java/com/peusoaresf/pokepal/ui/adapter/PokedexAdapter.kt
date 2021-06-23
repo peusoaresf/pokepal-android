@@ -18,8 +18,9 @@ class PokemonViewHolder
     private constructor(
         private val binding: ListItemPokemonBinding): RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(pokemon: Pokemon) {
+    fun bind(pokemon: Pokemon, callback: PokemonClick) {
         binding.pokemon = pokemon
+        binding.pokemonCallback = callback
         binding.executePendingBindings()
     }
 
@@ -41,12 +42,18 @@ class PokemonDiffCallback: DiffUtil.ItemCallback<Pokemon>() {
     }
 }
 
-class PokedexAdapter: ListAdapter<Pokemon, PokemonViewHolder>(PokemonDiffCallback()) {
+class PokemonClick(val lambda: (Pokemon) -> Unit) {
+    fun onClick(pokemon: Pokemon) = lambda(pokemon)
+}
+
+class PokedexAdapter(
+    val callback: PokemonClick
+): ListAdapter<Pokemon, PokemonViewHolder>(PokemonDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
         return PokemonViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), callback)
     }
 }

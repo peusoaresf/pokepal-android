@@ -15,11 +15,25 @@
             app:destination="@id/aboutFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:popEnterAnim="@anim/fragment_open_enter" />
+        <action
+            android:id="@+id/action_pokedexFragment_to_pokemonFragment"
+            app:destination="@id/pokemonFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:popEnterAnim="@anim/fragment_open_enter" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.peusoaresf.pokepal.ui.fragment.AboutFragment"
         android:label="@string/about"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/pokemonFragment"
+        android:name="com.peusoaresf.pokepal.ui.fragment.PokemonFragment"
+        android:label="@string/pokemon_details"
+        tools:layout="@layout/fragment_pokemon">
+        <argument
+            android:name="pokemon"
+            app:argType="com.peusoaresf.pokepal.domain.Pokemon" />
+    </fragment>
 
 </navigation>

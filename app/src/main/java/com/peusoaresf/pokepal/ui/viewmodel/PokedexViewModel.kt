@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.peusoaresf.pokepal.database.dao.PokemonDao
 import com.peusoaresf.pokepal.database.getDatabase
+import com.peusoaresf.pokepal.domain.Pokemon
 import com.peusoaresf.pokepal.network.Network
 import com.peusoaresf.pokepal.repository.PokemonRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -19,6 +20,10 @@ class PokedexViewModel(
     private val _showErrorMessage = MutableLiveData<String>()
     val showErrorMessage: LiveData<String>
         get() = _showErrorMessage
+
+    private val _navigateToSelectedPokemon = MutableLiveData<Pokemon>()
+    val navigateToSelectedPokemon: LiveData<Pokemon>
+        get() = _navigateToSelectedPokemon
 
     private val _isRefreshing = MutableLiveData<Boolean>()
     val isRefreshing: LiveData<Boolean>
@@ -49,6 +54,14 @@ class PokedexViewModel(
 
     fun showErrorMessageDone() {
         _showErrorMessage.value = null
+    }
+
+    fun displayPokemonDetails(pokemon: Pokemon) {
+        _navigateToSelectedPokemon.value = pokemon
+    }
+
+    fun displayPokemonDetailsDone() {
+        _navigateToSelectedPokemon.value = null
     }
 }
 

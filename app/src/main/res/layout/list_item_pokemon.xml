@@ -5,15 +5,18 @@
     android:paddingBottom="8dp">
 
     <data>
-
         <variable
             name="pokemon"
             type="com.peusoaresf.pokepal.domain.Pokemon" />
+        <variable
+            name="pokemonCallback"
+            type="com.peusoaresf.pokepal.ui.adapter.PokemonClick" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> pokemonCallback.onClick(pokemon)}">
 
         <TextView
             android:id="@+id/text_pokemon_id"
