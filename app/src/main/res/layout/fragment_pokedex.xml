@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             android:progress="@{viewModel.refreshProgress}"
-            android:max="100" />
+            android:max="100"
+            app:isVisible="@{viewModel.isRefreshing}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_pokedex"

@@ -68,14 +68,6 @@ class PokedexFragment: Fragment() {
             pokemons -> pokedexAdapter.submitList(pokemons)
         })
 
-        // TODO: create binding adapter
-        viewModel.isRefreshing.observe(viewLifecycleOwner, Observer { isRefreshing ->
-            binding.progressIndicator.visibility = when (isRefreshing) {
-                true -> View.VISIBLE
-                else -> View.GONE
-            }
-        })
-
         viewModel.navigateToSelectedPokemon.observe(viewLifecycleOwner, Observer { pokemon ->
             pokemon?.let {
                 Toast.makeText(requireContext(), pokemon.name, Toast.LENGTH_SHORT).show()
