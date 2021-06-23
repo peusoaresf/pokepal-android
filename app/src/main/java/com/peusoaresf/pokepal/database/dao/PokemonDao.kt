@@ -9,7 +9,7 @@ import com.peusoaresf.pokepal.database.entity.PokemonEntity
 
 @Dao
 interface PokemonDao {
-    @Query("select * from table_pokemon")
+    @Query("select * from table_pokemon where is_default = 1")
     fun getPokemons(): LiveData<List<PokemonEntity>>
 
     @Query("delete from table_pokemon")

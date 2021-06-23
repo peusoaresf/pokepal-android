@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:paddingBottom="8dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="pokemon"
             type="com.peusoaresf.pokepal.domain.Pokemon" />
+
         <variable
             name="pokemonCallback"
             type="com.peusoaresf.pokepal.ui.adapter.PokemonClick" />
@@ -31,6 +32,26 @@
             tools:text="#1" />
 
         <ImageView
+            android:id="@+id/image_primary_type"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:pokemonType="@{pokemon.primaryType}"
+            app:layout_constraintBottom_toTopOf="@+id/image_pokemon_sprite"
+            app:layout_constraintEnd_toStartOf="@+id/image_secondary_type"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/type_dark" />
+
+        <ImageView
+            android:id="@+id/image_secondary_type"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:pokemonType="@{pokemon.secondaryType}"
+            app:layout_constraintBottom_toTopOf="@+id/image_pokemon_sprite"
+            app:layout_constraintEnd_toEndOf="@+id/image_pokemon_sprite"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/type_bug" />
+
+        <ImageView
             android:id="@+id/image_pokemon_sprite"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -46,11 +67,12 @@
             android:id="@+id/text_pokemon_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{pokemon.name}"
             android:singleLine="true"
+            android:text="@{pokemon.name}"
             app:layout_constraintEnd_toEndOf="@+id/image_pokemon_sprite"
             app:layout_constraintStart_toStartOf="@+id/image_pokemon_sprite"
             app:layout_constraintTop_toBottomOf="@+id/image_pokemon_sprite"
             tools:text="bulbasaur" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
