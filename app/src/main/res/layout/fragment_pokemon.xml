@@ -9,99 +9,103 @@
             type="com.peusoaresf.pokepal.domain.Pokemon" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         tools:context=".ui.fragment.PokemonFragment">
 
-        <TextView
-            android:id="@+id/text_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{pokemon.name}"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.15"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05"
-            tools:text="heracross" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/image_type1"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="@+id/text_name"
-            app:layout_constraintTop_toBottomOf="@+id/text_name"
-            app:pokemonType="@{pokemon.primaryType}"
-            tools:srcCompat="@drawable/type_bug" />
-
-        <ImageView
-            android:id="@+id/image_type2"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@+id/image_type1"
-            app:layout_constraintTop_toTopOf="@+id/image_type1"
-            app:pokemonType="@{pokemon.secondaryType}"
-            tools:srcCompat="@drawable/type_bug" />
-
-        <TextView
-            android:id="@+id/text_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{pokemon.number}"
-            android:textStyle="bold"
-            app:layout_constraintBaseline_toBaselineOf="@+id/text_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.9"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="#100" />
-
-        <ImageView
-            android:id="@+id/image_sprite"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:imageUrl="@{pokemon.imageUrl}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_name"
-            app:layout_constraintVertical_bias="0.15"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout_details"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_sprite">
-
-            <com.google.android.material.tabs.TabItem
+            <TextView
+                android:id="@+id/text_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="@string/about" />
+                android:layout_marginTop="32dp"
+                android:text="@{pokemon.name}"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.15"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="heracross" />
 
-            <com.google.android.material.tabs.TabItem
+            <ImageView
+                android:id="@+id/image_type1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@+id/text_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_name"
+                app:pokemonType="@{pokemon.primaryType}"
+                tools:srcCompat="@drawable/type_bug" />
+
+            <ImageView
+                android:id="@+id/image_type2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@+id/image_type1"
+                app:layout_constraintTop_toTopOf="@+id/image_type1"
+                app:pokemonType="@{pokemon.secondaryType}"
+                tools:srcCompat="@drawable/type_bug" />
+
+            <TextView
+                android:id="@+id/text_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="@string/base_stats" />
+                android:text="@{pokemon.number}"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@+id/text_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.9"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="#100" />
 
-        </com.google.android.material.tabs.TabLayout>
+            <ImageView
+                android:id="@+id/image_sprite"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="64dp"
+                app:imageUrl="@{pokemon.imageUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_name"
+                tools:srcCompat="@tools:sample/avatars" />
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager_details"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab_layout_details" />
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout_details"
+                android:layout_width="409dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_sprite">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/about" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/base_stats" />
+
+            </com.google.android.material.tabs.TabLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager_details"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:minHeight="300dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tab_layout_details" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>
