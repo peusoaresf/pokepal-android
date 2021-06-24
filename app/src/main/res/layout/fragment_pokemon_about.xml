@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="pokemon"
+            type="com.peusoaresf.pokepal.domain.Pokemon" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/label_pokemon_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/height"
+            android:textColor="#B1ACAC"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.10" />
+
+        <TextView
+            android:id="@+id/label_pokemon_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/weight"
+            android:textColor="#B1ACAC"
+            app:layout_constraintStart_toStartOf="@+id/label_pokemon_height"
+            app:layout_constraintTop_toBottomOf="@+id/label_pokemon_height" />
+
+        <TextView
+            android:id="@+id/text_pokemon_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{pokemon.heightInCm}"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/label_pokemon_height"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.38"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="0.70 cm" />
+
+        <TextView
+            android:id="@+id/text_pokemon_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{pokemon.weightInKg}"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/label_pokemon_weight"
+            app:layout_constraintStart_toStartOf="@+id/text_pokemon_height"
+            tools:text="6.9 kg" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

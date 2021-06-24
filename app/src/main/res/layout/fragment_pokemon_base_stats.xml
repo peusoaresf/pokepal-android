@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="pokemon"
+            type="com.peusoaresf.pokepal.domain.Pokemon" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/label_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/speed"
+            android:textColor="#B1ACAC"
+            app:layout_constraintStart_toStartOf="@+id/label_special_defense"
+            app:layout_constraintTop_toBottomOf="@+id/label_special_defense" />
+
+        <TextView
+            android:id="@+id/label_special_defense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/sp_def"
+            android:textColor="#B1ACAC"
+            app:layout_constraintStart_toStartOf="@+id/label_special_attack"
+            app:layout_constraintTop_toBottomOf="@+id/label_special_attack" />
+
+        <TextView
+            android:id="@+id/label_hp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hp"
+            android:textColor="#B1ACAC"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.10" />
+
+        <TextView
+            android:id="@+id/label_attack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/attack"
+            android:textColor="#B1ACAC"
+            app:layout_constraintStart_toStartOf="@+id/label_hp"
+            app:layout_constraintTop_toBottomOf="@+id/label_hp" />
+
+        <TextView
+            android:id="@+id/text_hp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(pokemon.baseStats.hp.value)}"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/label_hp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.38"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="45" />
+
+        <TextView
+            android:id="@+id/text_attack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(pokemon.baseStats.attack.value)}"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/label_attack"
+            app:layout_constraintStart_toStartOf="@+id/text_hp"
+            tools:text="60" />
+
+        <TextView
+            android:id="@+id/label_defense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/defense"
+            android:textColor="#B1ACAC"
+            app:layout_constraintStart_toStartOf="@+id/label_attack"
+            app:layout_constraintTop_toBottomOf="@+id/label_attack" />
+
+        <TextView
+            android:id="@+id/label_special_attack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/sp_atk"
+            android:textColor="#B1ACAC"
+            app:layout_constraintStart_toStartOf="@+id/label_defense"
+            app:layout_constraintTop_toBottomOf="@+id/label_defense" />
+
+        <TextView
+            android:id="@+id/text_defense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(pokemon.baseStats.defense.value)}"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/label_defense"
+            app:layout_constraintStart_toStartOf="@+id/text_attack"
+            tools:text="48" />
+
+        <TextView
+            android:id="@+id/text_special_attack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(pokemon.baseStats.specialAttack.value)}"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/label_special_attack"
+            app:layout_constraintStart_toStartOf="@+id/text_defense"
+            tools:text="65" />
+
+        <TextView
+            android:id="@+id/text_special_defense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(pokemon.baseStats.specialDefense.value)}"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/label_special_defense"
+            app:layout_constraintStart_toStartOf="@+id/text_special_attack"
+            tools:text="65" />
+
+        <TextView
+            android:id="@+id/text_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(pokemon.baseStats.speed.value)}"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/label_speed"
+            app:layout_constraintStart_toStartOf="@+id/text_special_defense"
+            tools:text="45" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
