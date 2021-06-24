@@ -35,24 +35,6 @@ fun setPokemonTypeResource(imageView: ImageView, type: PokemonType?) {
         return
     }
 
-    return when (type) {
-        PokemonType.BUG -> imageView.setImageResource(R.drawable.type_bug)
-        PokemonType.DARK -> imageView.setImageResource(R.drawable.type_dark)
-        PokemonType.DRAGON -> imageView.setImageResource(R.drawable.type_dragon)
-        PokemonType.ELECTRIC -> imageView.setImageResource(R.drawable.type_electric)
-        PokemonType.FAIRY -> imageView.setImageResource(R.drawable.type_fairy)
-        PokemonType.FIGHTING -> imageView.setImageResource(R.drawable.type_fighting)
-        PokemonType.FIRE -> imageView.setImageResource(R.drawable.type_fire)
-        PokemonType.FLYING -> imageView.setImageResource(R.drawable.type_flying)
-        PokemonType.GHOST -> imageView.setImageResource(R.drawable.type_ghost)
-        PokemonType.GRASS -> imageView.setImageResource(R.drawable.type_grass)
-        PokemonType.GROUND -> imageView.setImageResource(R.drawable.type_ground)
-        PokemonType.ICE -> imageView.setImageResource(R.drawable.type_ice)
-        PokemonType.NORMAL -> imageView.setImageResource(R.drawable.type_normal)
-        PokemonType.POISON -> imageView.setImageResource(R.drawable.type_poison)
-        PokemonType.PSYCHIC -> imageView.setImageResource(R.drawable.type_psychic)
-        PokemonType.ROCK -> imageView.setImageResource(R.drawable.type_rock)
-        PokemonType.WATER -> imageView.setImageResource(R.drawable.type_water)
-        else -> imageView.setImageResource(R.drawable.ic_broken_image)
-    }
+    imageView.visibility = View.VISIBLE
+    imageView.setImageResource(type.resource)
 }
