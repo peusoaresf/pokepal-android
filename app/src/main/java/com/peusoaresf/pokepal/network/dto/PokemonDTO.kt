@@ -1,20 +1,12 @@
 package com.peusoaresf.pokepal.network.dto
 
 import com.peusoaresf.pokepal.database.entity.PokemonEntity
-
-data class Sprites(val front_default: String?)
-
-data class Type(val name: String)
-
-data class TypeItem(
-    val slot: Int,
-    val type: Type
-)
+import com.squareup.moshi.Json
 
 data class PokemonDTO(
     val id: Int,
     val name: String,
-    val sprites: Sprites,
+    val sprites: Sprites?,
     val is_default: Boolean,
     val types: Array<TypeItem>
 ) {
@@ -51,10 +43,25 @@ fun List<PokemonDTO>.asDatabaseModel(): List<PokemonEntity> {
         PokemonEntity(
             id = pokemonDTO.id,
             name = pokemonDTO.name,
-            sprite_url = pokemonDTO.sprites.front_default ?: "",
+            image_url = pokemonDTO.sprites?.other?.officialArtwork?.front_default ?: "",
             is_default = pokemonDTO.is_default,
             primary_type = primaryType,
             secondary_type = secondaryType
         )
     }
 }
+
+data class Sprites(val other: SpritesOther?)
+
+data class SpritesOther(
+    @Json(name = "official-artwork")
+    val officialArtwork: OfficialArtwork?)
+
+data class OfficialArtwork(val front_default: String?)
+
+data class TypeItem(
+    val slot: Int,
+    val type: Type
+)
+
+data class Type(val name: String)

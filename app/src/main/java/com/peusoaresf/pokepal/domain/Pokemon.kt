@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class Pokemon(
     val id: Int,
     val name: String,
-    val spriteUrl: String,
+    val imageUrl: String,
     val primaryType: PokemonType,
     val secondaryType: PokemonType?): Parcelable {
     val number = "#$id"

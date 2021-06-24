@@ -12,7 +12,7 @@ data class PokemonEntity(
     @PrimaryKey
     val id: Int,
     val name: String,
-    val sprite_url: String,
+    val image_url: String,
     val is_default: Boolean,
     val primary_type: String,
     val secondary_type: String?
@@ -23,7 +23,7 @@ fun List<PokemonEntity>.asDomainModel(): List<Pokemon> {
         Pokemon(
             id = pokemonEntity.id,
             name = pokemonEntity.name,
-            spriteUrl = pokemonEntity.sprite_url,
+            imageUrl = pokemonEntity.image_url,
             primaryType = PokemonType.fromString(pokemonEntity.primary_type),
             secondaryType = if (pokemonEntity.secondary_type != null) PokemonType.fromString(pokemonEntity.secondary_type) else null
         )
