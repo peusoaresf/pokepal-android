@@ -40,7 +40,7 @@
             android:id="@+id/text_pokemon_height"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{pokemon.heightInCm}"
+            android:text="@{pokemon.heightInMeter}"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@+id/label_pokemon_height"
             app:layout_constraintEnd_toEndOf="parent"

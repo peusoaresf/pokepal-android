@@ -15,6 +15,6 @@ data class Pokemon(
     val baseStats: PokemonStats): Parcelable {
 
     val number = "#$id"
-    val heightInCm = "${String.format("%.2f", height / 10.0)} cm"
+    val heightInMeter = "${String.format("%.2f", height / 10.0)} m"
     val weightInKg = "${String.format("%.1f", weight / 10.0)} kg"
 }
