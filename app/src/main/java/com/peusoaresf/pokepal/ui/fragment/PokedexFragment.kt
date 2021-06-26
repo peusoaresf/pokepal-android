@@ -59,7 +59,6 @@ class PokedexFragment: Fragment() {
 
         viewModel.navigateToSelectedPokemon.observe(viewLifecycleOwner, Observer { pokemon ->
             pokemon?.let {
-                Toast.makeText(requireContext(), pokemon.name, Toast.LENGTH_SHORT).show()
                 this.findNavController().navigate(
                     PokedexFragmentDirections.actionPokedexFragmentToPokemonFragment(pokemon)
                 )

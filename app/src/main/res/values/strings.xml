@@ -2,7 +2,7 @@
     <string name="app_name">Poképal</string>
     <string name="refresh_pokemons">Refresh Pokémons</string>
     <string name="about">About</string>
-    <string name="pokemon_details">Pokémon Details</string>
+    <string name="details">Details</string>
     <string name="base_stats">Base Stats</string>
     <string name="height">Height</string>
     <string name="weight">Weight</string>

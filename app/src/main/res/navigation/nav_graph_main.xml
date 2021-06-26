@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/pokemonFragment"
         android:name="com.peusoaresf.pokepal.ui.fragment.PokemonFragment"
-        android:label="@string/pokemon_details"
+        android:label="@string/details"
         tools:layout="@layout/fragment_pokemon">
         <argument
             android:name="pokemon"
