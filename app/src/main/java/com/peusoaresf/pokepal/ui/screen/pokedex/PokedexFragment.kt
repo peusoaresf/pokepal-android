@@ -1,4 +1,4 @@
-package com.peusoaresf.pokepal.ui.fragment
+package com.peusoaresf.pokepal.ui.screen.pokedex
 
 import android.os.Bundle
 import android.view.*
@@ -10,10 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.peusoaresf.pokepal.R
 import com.peusoaresf.pokepal.databinding.FragmentPokedexBinding
-import com.peusoaresf.pokepal.ui.adapter.PokedexAdapter
-import com.peusoaresf.pokepal.ui.adapter.PokemonClick
-import com.peusoaresf.pokepal.ui.viewmodel.PokedexViewModel
-import com.peusoaresf.pokepal.ui.viewmodel.PokedexViewModelFactory
 
 class PokedexFragment: Fragment() {
     private val viewModel: PokedexViewModel by lazy {

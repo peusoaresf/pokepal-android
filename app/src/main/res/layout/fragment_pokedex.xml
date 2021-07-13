@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.peusoaresf.pokepal.ui.viewmodel.PokedexViewModel" />
+            type="com.peusoaresf.pokepal.ui.screen.pokedex.PokedexViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragment.PokedexFragment">
+        tools:context=".ui.screen.pokedex.PokedexFragment">
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progress_indicator"

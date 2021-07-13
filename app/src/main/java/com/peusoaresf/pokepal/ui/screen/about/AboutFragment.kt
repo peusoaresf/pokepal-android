@@ -1,11 +1,11 @@
-package com.peusoaresf.pokepal.ui.fragment
+package com.peusoaresf.pokepal.ui.screen.about
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.peusoaresf.pokepal.BuildConfig
 import com.peusoaresf.pokepal.R
 import com.peusoaresf.pokepal.databinding.FragmentAboutBinding

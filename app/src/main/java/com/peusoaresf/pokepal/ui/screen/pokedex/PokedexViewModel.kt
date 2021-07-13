@@ -1,15 +1,12 @@
-package com.peusoaresf.pokepal.ui.viewmodel
+package com.peusoaresf.pokepal.ui.screen.pokedex
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.peusoaresf.pokepal.database.dao.PokemonDao
 import com.peusoaresf.pokepal.database.getDatabase
 import com.peusoaresf.pokepal.domain.Pokemon
 import com.peusoaresf.pokepal.network.Network
 import com.peusoaresf.pokepal.repository.PokemonRepository
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

@@ -11,7 +11,7 @@
 
         <variable
             name="pokemonCallback"
-            type="com.peusoaresf.pokepal.ui.adapter.PokemonClick" />
+            type="com.peusoaresf.pokepal.ui.screen.pokedex.PokemonClick" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

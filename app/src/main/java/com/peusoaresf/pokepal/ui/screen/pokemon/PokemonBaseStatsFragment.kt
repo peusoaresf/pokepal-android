@@ -1,4 +1,4 @@
-package com.peusoaresf.pokepal.ui.fragment
+package com.peusoaresf.pokepal.ui.screen.pokemon
 
 import android.os.Bundle
 import android.view.LayoutInflater

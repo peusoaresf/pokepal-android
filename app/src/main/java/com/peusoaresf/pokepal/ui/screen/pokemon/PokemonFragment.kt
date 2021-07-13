@@ -1,18 +1,13 @@
-package com.peusoaresf.pokepal.ui.fragment
+package com.peusoaresf.pokepal.ui.screen.pokemon
 
-import android.content.res.Configuration
 import android.os.Bundle
-import android.util.TypedValue
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.peusoaresf.pokepal.R
 import com.peusoaresf.pokepal.databinding.FragmentPokemonBinding
-import com.peusoaresf.pokepal.ui.adapter.PokemonDetailsPagerAdapter
 
 class PokemonFragment : Fragment() {
     override fun onCreateView(
@@ -24,7 +19,7 @@ class PokemonFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.pokemon = selectedPokemon
-        binding.viewPagerDetails.adapter = PokemonDetailsPagerAdapter(selectedPokemon, this.requireActivity())
+        binding.viewPagerDetails.adapter = PokemonPagerAdapter(this.requireActivity(), selectedPokemon)
 
         TabLayoutMediator(binding.tabLayoutDetails, binding.viewPagerDetails) { tab, position ->
             tab.text = when (position) {
