@@ -12,8 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pokepal">
         <activity
-            android:name=".ui.MainActivity"
-            android:configChanges="orientation|screenSize">
+            android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
