@@ -13,5 +13,5 @@
     <string name="defense">Defense</string>
     <string name="sp_atk">Sp. Atk</string>
     <string name="search_title">Search</string>
-    <string name="search_hint">Type a number or name...</string>
+    <string name="search_hint">Search...</string>
 </resources>
