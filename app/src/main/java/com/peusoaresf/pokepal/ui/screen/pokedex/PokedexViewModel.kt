@@ -8,11 +8,15 @@ import com.peusoaresf.pokepal.domain.Pokemon
 import com.peusoaresf.pokepal.network.Network
 import com.peusoaresf.pokepal.repository.PokemonRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class PokedexViewModel(
     application: Application,
-    val pokemonRepository: PokemonRepository): AndroidViewModel(application) {
+    val pokemonRepository: PokemonRepository,
+    searchQueryDataSource: SearchQueryDataSource): AndroidViewModel(application) {
 
     private val _showErrorMessage = MutableLiveData<String>()
     val showErrorMessage: LiveData<String>
@@ -30,8 +34,18 @@ class PokedexViewModel(
 
     val pokemons = pokemonRepository.pokemons
 
+    val filter = pokemonRepository.filter
+
     init {
         _isRefreshing.value = false
+
+        viewModelScope.launch {
+            searchQueryDataSource.getSearchQuery()
+                .debounce(500)
+                .collect { query ->
+                    pokemonRepository.setPokemonFilter(query)
+                }
+        }
     }
 
     fun refreshPokemons() = viewModelScope.launch {
@@ -63,7 +77,8 @@ class PokedexViewModel(
 }
 
 class PokedexViewModelFactory(
-    private val application: Application): ViewModelProvider.Factory {
+    private val application: Application,
+    private val searchQueryDataSource: SearchQueryDataSource): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(PokedexViewModel::class.java)) {
             val pokemonRepository = PokemonRepository(
@@ -73,7 +88,7 @@ class PokedexViewModelFactory(
             )
 
             @Suppress("UNCHECKED_CAST")
-            return PokedexViewModel(application, pokemonRepository) as T
+            return PokedexViewModel(application, pokemonRepository, searchQueryDataSource) as T
         }
         throw IllegalArgumentException("Unable to construct viewmodel")
     }

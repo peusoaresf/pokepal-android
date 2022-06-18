@@ -1,10 +1,12 @@
 package com.peusoaresf.pokepal.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.peusoaresf.pokepal.database.dao.PokemonDao
 import com.peusoaresf.pokepal.database.entity.asDomainModel
+import com.peusoaresf.pokepal.domain.Pokemon
 import com.peusoaresf.pokepal.network.Network
 import com.peusoaresf.pokepal.network.dto.asDatabaseModel
 import com.peusoaresf.pokepal.network.service.PokemonService
@@ -21,8 +23,20 @@ class PokemonRepository(
     val refreshProgress: LiveData<Int>
         get() = _refreshProgress
 
-    val pokemons = Transformations.map(pokemonDao.getPokemons()) {
-        it.asDomainModel()
+    private val _filter = MutableLiveData<String>("")
+    val filter: LiveData<String>
+        get() = _filter
+
+     val pokemons = Transformations
+         .switchMap(_filter) { filter ->
+            Transformations
+                .map(pokemonDao.getPokemons("%$filter%")) {
+                    it.asDomainModel()
+                }
+        }
+
+    fun setPokemonFilter(query: String) {
+        _filter.value = query
     }
 
     suspend fun refreshPokemons() = withContext(externalContext) {

@@ -2,10 +2,12 @@ package com.peusoaresf.pokepal.ui.screen.pokedex
 
 import android.animation.LayoutTransition
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -13,14 +15,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.peusoaresf.pokepal.R
 import com.peusoaresf.pokepal.databinding.FragmentPokedexBinding
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 
 class PokedexFragment: Fragment() {
+    private val searchQueryDataSource = SearchQueryDataSource()
+
     private val viewModel: PokedexViewModel by lazy {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onViewCreated()"
         }
 
-        ViewModelProvider(this, PokedexViewModelFactory(activity.application))
+        ViewModelProvider(this, PokedexViewModelFactory(activity.application, searchQueryDataSource))
             .get(PokedexViewModel::class.java)
     }
 
@@ -75,20 +82,17 @@ class PokedexFragment: Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
+
         inflater.inflate(R.menu.menu_overflow, menu)
 
         val searchView = (menu.findItem(R.id.menu_item_search).actionView as SearchView)
         searchView.queryHint = getString(R.string.search_hint)
 
-        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(s: String): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(query: String): Boolean {
-                return false
-            }
+        viewModel.filter.observe(viewLifecycleOwner, Observer { filter ->
+            searchView.setQuery(filter, false)
         })
+
+        searchQueryDataSource.attachSearchView(searchView)
 
         val searchBar = searchView.findViewById<LinearLayout>(R.id.search_bar)
         searchBar?.layoutTransition = LayoutTransition()
