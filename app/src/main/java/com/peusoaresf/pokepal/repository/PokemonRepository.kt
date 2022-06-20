@@ -24,8 +24,6 @@ class PokemonRepository(
         get() = _refreshProgress
 
     private val _filter = MutableLiveData<String>("")
-    val filter: LiveData<String>
-        get() = _filter
 
      val pokemons = Transformations
          .switchMap(_filter) { filter ->

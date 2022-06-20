@@ -34,8 +34,6 @@ class PokedexViewModel(
 
     val pokemons = pokemonRepository.pokemons
 
-    val filter = pokemonRepository.filter
-
     init {
         _isRefreshing.value = false
 

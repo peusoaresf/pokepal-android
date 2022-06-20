@@ -88,10 +88,6 @@ class PokedexFragment: Fragment() {
         val searchView = (menu.findItem(R.id.menu_item_search).actionView as SearchView)
         searchView.queryHint = getString(R.string.search_hint)
 
-        viewModel.filter.observe(viewLifecycleOwner, Observer { filter ->
-            searchView.setQuery(filter, false)
-        })
-
         searchQueryDataSource.attachSearchView(searchView)
 
         val searchBar = searchView.findViewById<LinearLayout>(R.id.search_bar)
